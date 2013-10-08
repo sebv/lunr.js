@@ -1754,4 +1754,27 @@ lunr.TokenStore.prototype.toJSON = function () {
     length: this.length
   }
 }
+
+/************************************
+    Exposing lunr
+************************************/
+
+// CommonJS module is defined
+if (typeof module !== 'undefined') {
+    module.exports = lunr;
+}
+/*global ender:false */
+if (typeof ender === 'undefined') {
+    // here, `this` means `window` in the browser, or `global` on the server
+    // add `moment` as a global object via a string identifier,
+    // for Closure Compiler "advanced" mode
+    this['lunr'] = lunr;
+}
+/*global define:false */
+if (typeof define === "function" && define.amd) {
+    define("lunr", [], function () {
+        return lunr;
+    });
+}
+
 }).call(this);
